@@ -8,8 +8,17 @@ const createProduct = async (product: Product) => {
       VALUES
     (?, ?);`;
   const value = [name, amount];
-  const [{ insertId }] = await connection.execute<ResultSetHeader>(query, value);
+  const [{ insertId }] = await connection.execute<ResultSetHeader>(
+    query,
+    value,
+  );
   return { id: insertId, ...product };
 };
 
-export default createProduct;
+const getAllProducts = async () => {
+  const query = 'SELECT * from Trybesmith.Products';
+  const [products] = await connection.execute<ResultSetHeader>(query);
+  return products;
+};
+
+export { createProduct, getAllProducts };
