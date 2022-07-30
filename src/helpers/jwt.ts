@@ -4,8 +4,9 @@ import { User } from '../types/@types';
 
 dotenv.config();
 
+const SECRET = process.env.JWT_SECRET || 'segredo';
 const creatingToken = (data: Omit<User, 'password'>) => {
-  const token = jwt.sign(data, process.env.JWT_SECRET as string);
+  const token = jwt.sign(data, SECRET as string);
   return token;
 };
 
